@@ -1,0 +1,87 @@
+﻿@page "/calculator"
+
+<PageTitle>Calculator</PageTitle>
+
+<h3>Calculator</h3>
+
+<p role="status">Current count: @Expression</p>
+
+<button class="btn btn-primary" @onclick="Plus">+</button>
+<button class="btn btn-primary" @onclick="Minus">-</button>
+<button class="btn btn-primary" @onclick="Multiply">/</button>
+<button class="btn btn-primary" @onclick="Plus">1</button>
+<button class="btn btn-primary" @onclick="Plus">2</button>
+<button class="btn btn-primary" @onclick="Plus">3</button>
+<button class="btn btn-primary" @onclick="Plus">4</button>
+<button class="btn btn-primary" @onclick="Plus">5</button>
+<button class="btn btn-primary" @onclick="Plus">6</button>
+<button class="btn btn-primary" @onclick="Plus">7</button>
+<button class="btn btn-primary" @onclick="Plus">8</button>
+<button class="btn btn-primary" @onclick="Plus">9</button>
+<button class="btn btn-primary" @onclick="Plus">0</button>
+
+
+@code {
+    private int Expression;
+    private int frist = 0;
+    private int second = 1;
+
+    private void Plus()
+    {
+        Expression = frist + second;
+    }
+
+    private void Minus()
+    {
+
+    }
+
+    private void Multiply()
+    {
+        
+    }
+
+    private void Divide()
+    {
+
+    }
+    private void One()
+    {
+       
+    }
+    private void Two()
+    {
+
+    }
+    private void Three()
+    {
+
+    }private void Four()
+    {
+
+    }private void Fith()
+    {
+
+    }
+    private void Six()
+    {
+
+    }
+    private void Seven()
+    {
+
+    }
+    private void Eigth()
+    {
+
+    }
+    private void Nine()
+    {
+
+    }
+    private void Zerp()
+    {
+
+    }
+
+}
