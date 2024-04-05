@@ -4,84 +4,75 @@
 
 <h3>Calculator</h3>
 
-<p role="status">Current count: @Expression</p>
+<p role="status">Expression: @Expression</p>
 
 <button class="btn btn-primary" @onclick="Plus">+</button>
 <button class="btn btn-primary" @onclick="Minus">-</button>
 <button class="btn btn-primary" @onclick="Multiply">/</button>
-<button class="btn btn-primary" @onclick="Plus">1</button>
-<button class="btn btn-primary" @onclick="Plus">2</button>
-<button class="btn btn-primary" @onclick="Plus">3</button>
+
+<br />
+<button class="btn btn-primary" @onclick="Multiply">=</button>
+<button class="btn btn-primary" @onclick="AppendNumber">0</button>
+
+<br/>
+<button class="btn btn-primary" @onclick="AppendNumber">1</button>
+<button class="btn btn-primary" @onclick="AppendNumber">2</button>
+<button class="btn btn-primary" @onclick="AppendNumber">3</button>
+<br/>
 <button class="btn btn-primary" @onclick="Plus">4</button>
 <button class="btn btn-primary" @onclick="Plus">5</button>
 <button class="btn btn-primary" @onclick="Plus">6</button>
+<br/>
 <button class="btn btn-primary" @onclick="Plus">7</button>
 <button class="btn btn-primary" @onclick="Plus">8</button>
 <button class="btn btn-primary" @onclick="Plus">9</button>
-<button class="btn btn-primary" @onclick="Plus">0</button>
+
 
 
 @code {
-    private int Expression;
-    private int frist = 0;
-    private int second = 1;
+        string Expression1;
+        string Expression2;
+        double a, b;
+        int count;
 
-    private void Plus()
-    {
-        Expression = frist + second;
-    }
+        void BTNClick(int count)
+        {
+            a = double.Parse(Expression1);
+            Expression2 = "";
+            this.count = count;
+            switch (count)
+            {
+                case 1:
+                    Expression1 = a.ToString() + " + ";
+                    break;
+                case 2:
+                    Expression1 = a.ToString() + " - ";
+                    break;
+                case 3:
+                    Expression1 = a.ToString() + " * ";
+                    break;
+                case 4:
+                    Expression1 = a.ToString() + " / ";
+                    break;
 
-    private void Minus()
-    {
+            }
+        }
 
-    }
+        void Calculate(int count)
+        {
+            this.Expression2 = "";
+            switch (count)
+            {
+                case 1:
+                    b = a + double.Parse(Expression1);
+                    Expression2 = b.ToString();
+                    break;
+                case 2;
+                    b = a + double.Parse(Expression1);
+                    Expression2 = b.ToString();
+                    break;
 
-    private void Multiply()
-    {
-        
-    }
-
-    private void Divide()
-    {
-
-    }
-    private void One()
-    {
-       
-    }
-    private void Two()
-    {
-
-    }
-    private void Three()
-    {
-
-    }private void Four()
-    {
-
-    }private void Fith()
-    {
-
-    }
-    private void Six()
-    {
-
-    }
-    private void Seven()
-    {
-
-    }
-    private void Eigth()
-    {
-
-    }
-    private void Nine()
-    {
-
-    }
-    private void Zerp()
-    {
-
+            }
     }
 
 }
