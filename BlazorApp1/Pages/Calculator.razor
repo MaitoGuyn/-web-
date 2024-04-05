@@ -4,28 +4,32 @@
 
 <h3>Calculator</h3>
 
-<p role="status">Expression: @Expression</p>
+    <div class="textwrap">
+    <span class="text2">@Expression2</span>
+    <span class="text1">@Expression1</span>
+    </div>
+<p role="status">Expression: @Expression1</p>
 
-<button class="btn btn-primary" @onclick="Plus">+</button>
-<button class="btn btn-primary" @onclick="Minus">-</button>
-<button class="btn btn-primary" @onclick="Multiply">/</button>
+<button class="btn btn-primary" @onclick="() => BTNClick(count)">+</button>
+<button class="btn btn-primary" @onclick="() => BTNClick(count)">-</button>
+<button class="btn btn-primary" @onclick="() => BTNClick(count)">/</button>
 
 <br />
-<button class="btn btn-primary" @onclick="Multiply">=</button>
-<button class="btn btn-primary" @onclick="AppendNumber">0</button>
+<button class="btn btn-primary" @onclick="@(()=> Calculate(count))">=</button>
+<button class="btn btn-primary" @onclick="() => BTNClick(count)">0</button>
 
 <br/>
-<button class="btn btn-primary" @onclick="AppendNumber">1</button>
-<button class="btn btn-primary" @onclick="AppendNumber">2</button>
-<button class="btn btn-primary" @onclick="AppendNumber">3</button>
+<button class="btn btn-primary" @onclick="() => BTNClick(count)">1</button>
+<button class="btn btn-primary" @onclick="() => BTNClick(count)">2</button>
+<button class="btn btn-primary" @onclick="() => BTNClick(count)">3</button>
 <br/>
-<button class="btn btn-primary" @onclick="Plus">4</button>
-<button class="btn btn-primary" @onclick="Plus">5</button>
-<button class="btn btn-primary" @onclick="Plus">6</button>
+<button class="btn btn-primary" @onclick="() => BTNClick(count)">4</button>
+<button class="btn btn-primary" @onclick="() => BTNClick(count)">5</button>
+<button class="btn btn-primary" @onclick="() => BTNClick(count)">6</button>
 <br/>
-<button class="btn btn-primary" @onclick="Plus">7</button>
-<button class="btn btn-primary" @onclick="Plus">8</button>
-<button class="btn btn-primary" @onclick="Plus">9</button>
+<button class="btn btn-primary" @onclick="() => BTNClick(count)">7</button>
+<button class="btn btn-primary" @onclick="() => BTNClick(count)">8</button>
+<button class="btn btn-primary" @onclick="() => BTNClick(count)">9</button>
 
 
 
@@ -66,11 +70,19 @@
                 case 1:
                     b = a + double.Parse(Expression1);
                     Expression2 = b.ToString();
-                    break;
-                case 2;
-                    b = a + double.Parse(Expression1);
+                break;
+                case 2:
+                    b = a - double.Parse(Expression1);
                     Expression2 = b.ToString();
-                    break;
+                break;
+                case 3:
+                    b = a / double.Parse(Expression1);
+                    Expression2 = b.ToString();
+                break;
+                case 4:
+                    b = a * double.Parse(Expression1);
+                    Expression2 = b.ToString();
+                break;
 
             }
     }
