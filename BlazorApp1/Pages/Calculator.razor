@@ -10,81 +10,80 @@
     </div>
 <p role="status">Expression: @Expression1</p>
 
-<button class="btn btn-primary" @onclick="() => BTNClick(count)">+</button>
-<button class="btn btn-primary" @onclick="() => BTNClick(count)">-</button>
-<button class="btn btn-primary" @onclick="() => BTNClick(count)">/</button>
+<button class="btn btn-primary" @onclick="() => AddOperation('+')">+</button>
+<button class="btn btn-primary" @onclick="() => AddOperation('-')">-</button>
+<button class="btn btn-primary" @onclick="() => AddOperation('/')">/</button>
 
 <br />
-<button class="btn btn-primary" @onclick="@(()=> Calculate(count))">=</button>
-<button class="btn btn-primary" @onclick="() => BTNClick(count)">0</button>
+<button class="btn btn-primary" @onclick="() => AddOperation('*')">*</button>
+<button class="btn btn-primary" @onclick="@(()=> Calculate())">=</button>
+<button class="btn btn-primary" @onclick="() => AddDigit(0)">0</button>
 
 <br/>
-<button class="btn btn-primary" @onclick="() => BTNClick(count)">1</button>
-<button class="btn btn-primary" @onclick="() => BTNClick(count)">2</button>
-<button class="btn btn-primary" @onclick="() => BTNClick(count)">3</button>
+<button class="btn btn-primary" @onclick="() => AddDigit(1)">1</button>
+<button class="btn btn-primary" @onclick="() => AddDigit(2)">2</button>
+<button class="btn btn-primary" @onclick="() => AddDigit(3)">3</button>
 <br/>
-<button class="btn btn-primary" @onclick="() => BTNClick(count)">4</button>
-<button class="btn btn-primary" @onclick="() => BTNClick(count)">5</button>
-<button class="btn btn-primary" @onclick="() => BTNClick(count)">6</button>
+<button class="btn btn-primary" @onclick="() => AddDigit(4)">4</button>
+<button class="btn btn-primary" @onclick="() => AddDigit(5)">5</button>
+<button class="btn btn-primary" @onclick="() => AddDigit(6)">6</button>
 <br/>
-<button class="btn btn-primary" @onclick="() => BTNClick(count)">7</button>
-<button class="btn btn-primary" @onclick="() => BTNClick(count)">8</button>
-<button class="btn btn-primary" @onclick="() => BTNClick(count)">9</button>
+<button class="btn btn-primary" @onclick="() => AddDigit(7)">7</button>
+<button class="btn btn-primary" @onclick="() => AddDigit(8)">8</button>
+<button class="btn btn-primary" @onclick="() => AddDigit(9)">9</button>
 
 
 
 @code {
-        string Expression1;
-        string Expression2;
-        double a, b;
-        int count;
+    string Expression1 = "";
+    string Expression2 = "";
+    double a, b;
+    char operation;
 
-        void BTNClick(int count)
+    void AddDigit(int digit)
+    {
+        Expression1 += digit.ToString();
+
+    }
+
+    void AddOperation(char op)
+    {
+        a = double.Parse(Expression1);
+        operation = op;
+        Expression1 = "";
+        Expression2 += op;
+    }
+
+
+    //Проблема в вашем коде заключается в том, что после нажатия на кнопку операции(+, -, *, /),
+    //переменная a устанавливается только один раз при вызове метода AddOperation(). 
+    //В результате переменная a остается равной значению, введенному до операции, и не обновляется при последующем вводе числа.
+    //Это приводит к неправильным результатам вычислений.
+
+    // Чтобы исправить это, вам нужно обновлять переменную a при каждом вводе числа.
+    // Для этого вы можете перенести установку переменной a в метод Calculate() и вызывать его перед выполнением операции.
+    void Calculate()
+    {
+        b = double.Parse(Expression1);
+        switch (operation)
         {
-            a = double.Parse(Expression1);
-            Expression2 = "";
-            this.count = count;
-            switch (count)
-            {
-                case 1:
-                    Expression1 = a.ToString() + " + ";
-                    break;
-                case 2:
-                    Expression1 = a.ToString() + " - ";
-                    break;
-                case 3:
-                    Expression1 = a.ToString() + " * ";
-                    break;
-                case 4:
-                    Expression1 = a.ToString() + " / ";
-                    break;
+            case '+':
+                Expression1 = (a + b).ToString();
+                break;
 
-            }
+            case '-':
+                Expression1 = (a - b).ToString();
+                break;
+
+            case '*':
+                Expression1 = (a * b).ToString();
+                break;
+
+            case '/':
+                Expression1 = (a / b).ToString();
+                break;
         }
-
-        void Calculate(int count)
-        {
-            this.Expression2 = "";
-            switch (count)
-            {
-                case 1:
-                    b = a + double.Parse(Expression1);
-                    Expression2 = b.ToString();
-                break;
-                case 2:
-                    b = a - double.Parse(Expression1);
-                    Expression2 = b.ToString();
-                break;
-                case 3:
-                    b = a / double.Parse(Expression1);
-                    Expression2 = b.ToString();
-                break;
-                case 4:
-                    b = a * double.Parse(Expression1);
-                    Expression2 = b.ToString();
-                break;
-
-            }
+        Expression2 = "";
     }
 
 }
