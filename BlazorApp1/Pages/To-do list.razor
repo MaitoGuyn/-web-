@@ -1,0 +1,34 @@
+﻿@page "/To-do list"
+<h3>To-do list</h3>
+
+<h2>Student</h2>
+<div>
+    <p>
+        Name:<br />
+        <InputText @bind-Value="student.Name" />
+    </p>
+    <p>
+        Age:<br />
+        <InputNumber @bind-Value="student.Age" />
+    </p>
+    <p>
+        Enrollment Date:<br />
+        <InputDate @bind-Value="student.EnrollmentDate" />
+    </p>
+    <p>
+        Has Work:<br />
+        <InputCheckbox @bind-Value="student.HasWork" />
+    </p>
+   
+</div>
+
+@code {
+    class Student
+    {
+        public string Name{ get; set; }
+        public string Age { get; set; }
+        public DateTime EnrollmentDate { get; set; } = DateTime.Now;
+        public bool HasWork { get; set; }
+    }
+    Student student = new Student();
+}
