@@ -1,0 +1,47 @@
+﻿@page "/Norris_Joke"
+
+<h3>Norris_Joke</h3>
+
+<button class="btn btn-primary" @onclick="Joke">Joke</button>
+<p role="status">Joke: @joke</p>
+
+@code {
+    private string joke = "";
+    async void Joke()
+    { 
+        var response = await GetChuckNorrisJoke();
+        joke = response.value;
+        
+    }
+    private static async Task<ChuckNorrisJokeResponse> GetChuckNorrisJoke()
+    {
+
+        using (var httpClient = new HttpClient())
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri("https://matchilling-chuck-norris-jokes-v1.p.rapidapi.com/jokes/random"),
+                    Headers =
+                {
+                    { "accept", "application/json" },
+                    { "X-RapidAPI-Key", "апи ключ" },
+                    { "X-RapidAPI-Host", "matchilling-chuck-norris-jokes-v1.p.rapidapi.com" },
+                },
+                };
+
+            using (var response = await httpClient.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<ChuckNorrisJokeResponse>(body);
+            }
+
+        }
+    }
+    public class ChuckNorrisJokeResponse
+    {
+        public string value { get; set; }
+    }
+}

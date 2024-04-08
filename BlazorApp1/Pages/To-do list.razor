@@ -1,34 +1,57 @@
-﻿@page "/To-do list"
+﻿@page "/Todolist"
 <h3>To-do list</h3>
 
-<h2>Student</h2>
+
 <div>
-    <p>
-        Name:<br />
-        <InputText @bind-Value="student.Name" />
-    </p>
-    <p>
-        Age:<br />
-        <InputNumber @bind-Value="student.Age" />
-    </p>
-    <p>
-        Enrollment Date:<br />
-        <InputDate @bind-Value="student.EnrollmentDate" />
-    </p>
-    <p>
-        Has Work:<br />
-        <InputCheckbox @bind-Value="student.HasWork" />
-    </p>
-   
+    @* Проблема здесь в том, что компонент InputText требует наличия параметра EditContext, который обычно предоставляется компонентом EditForm.
+       Это связано с тем, что InputText должен быть внутри формы, чтобы корректно работать с валидацией и передавать контекст редактирования.
+       Чтобы решить эту проблему, нужно использовать компонент InputText внутри компонента EditForm, даже если вам не требуется валидация. Вот как это может выглядеть: *@
+
+    <EditForm Model="@todolist" OnSubmit="@AddNewRecord">
+        <p>
+            Name:<br />
+            <InputText @bind-Value="todolist.Deals" />
+        </p>
+        <button type="submit">Add Task</button>
+    </EditForm>     
 </div>
 
+<EditForm Model="todoList" OnSubmit="@CLearTODOlist">
+    <div>
+        <h4>Todo list</h4>
+        @foreach (var item in todoList)
+        {
+            <div>
+                <InputCheckbox @bind-Value="item.IsCompleted" />
+                <InputText @bind-Value="item.Task" />
+            </div>
+        }
+        <button type="submit">Clear</button>
+    </div>
+</EditForm>
+
 @code {
-    class Student
+    Todolist todolist = new Todolist();
+    List<TodoItem> todoList = new List<TodoItem>();
+
+    void AddNewRecord()
     {
-        public string Name{ get; set; }
-        public string Age { get; set; }
-        public DateTime EnrollmentDate { get; set; } = DateTime.Now;
-        public bool HasWork { get; set; }
+        TodoItem NewTodo = new TodoItem { Task = todolist.Deals, IsCompleted = false };
+        todoList.Add(NewTodo);
+        todolist.Deals = "";
     }
-    Student student = new Student();
+    void CLearTODOlist()
+    {
+        todoList.Clear();
+    }
+    class Todolist
+    {
+        public string Deals { get; set; }
+    }
+    class TodoItem
+    {
+        public string Task { get; set; }
+        public bool IsCompleted { get; set; }
+
+    }
 }
